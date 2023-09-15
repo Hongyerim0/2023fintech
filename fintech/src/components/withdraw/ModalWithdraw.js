@@ -30,8 +30,10 @@ const ModalWithdraw = ({ tofintechno }) => {
   }, []);
 
   const getAccountList = () => {
-    const accessToken = localStorage.getItem("accessToken");
-    const userSeqNo = localStorage.getItem("userSeqNo");
+    // const accessToken = localStorage.getItem("accessToken");
+    const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwMDM0NzM2Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE3MDI0MzE5NDYsImp0aSI6ImRlNGRlNmEyLTIxNmItNGIyNi04YjA4LThlMDVkYmQwMzU0MyJ9.BirXtT1V5AmgZC3SuTAOj-E0TuTcFsrdVco0gR6FlsA'
+    const userSeqNo = '1100034736'
+    //const userSeqNo = localStorage.getItem("userSeqNo");
     console.log(accessToken, userSeqNo);
     //axios 요청을 작성해야함
     //header 설정
@@ -47,6 +49,7 @@ const ModalWithdraw = ({ tofintechno }) => {
     };
 
     axios(option).then(({ data }) => {
+        console.log(data)
       setAccountList(data.res_list);
     });
   };
@@ -64,7 +67,7 @@ const ModalWithdraw = ({ tofintechno }) => {
             ></ModalCard>
           );
         })}
-      </Slider>
+    </Slider>
     </ModalWithdrawBlock>
   );
 };
