@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const mysql = require("mysql2");
 var jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-
+const auth = require("./lib/auth");
 const app = express();
 
 dotenv.config();
@@ -17,7 +17,8 @@ const connection = mysql.createConnection({
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", function (req, res) {
+app.get("/", auth, function (req, res) {
+  console.log(req.decoded);
   res.send("Hello World");
 });
 
@@ -28,7 +29,6 @@ app.post("/", (req, res) => {
 
 app.post("/login", (req, res) => {
   const { userAccount, password } = req.body;
-
   const sql =
     "SELECT user_id, user_account, user_password FROM fintech.user WHERE user_account = ?";
   connection.query(sql, [userAccount], (err, result) => {
