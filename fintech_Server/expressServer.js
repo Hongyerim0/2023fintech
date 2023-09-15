@@ -23,17 +23,36 @@ app.post("/",(req, res)=>{
     res.send("Hello");
 });
 
-app.post("/login",(req, res)=>{
-    const{ userAccount, password}=req.body;
+app.post("/login", (req, res) => {
+    const { userAccount, password } = req.body;
     const sql =
-    "SELECT user_id, user_account, user_password FROM fintech.user WHERE user_account = ?";
-    Connection.query(sql,[userAccount],(err, result)=>{
-        if (err) throw err;
-        console.log(result);
-        if(password===result[0].user_password){
-            res.json("로그인 성공");
-        }
+      "SELECT user_id, user_account, user_password FROM fintech.user WHERE user_account = ?";
+    connection.query(sql, [userAccount], (err, result) => {
+      if (err) throw err;
+      console.log(result);
+      if (password === result[0].user_password) {
+        let tokenKey = "f@i#n%tne#ckfhlafkd0102test!@#%";
+        jwt.sign(
+          {
+            userId: result[0].user_id,
+            userEmail: result[0].user_account,
+          },
+          tokenKey,
+          {
+            expiresIn: "10d",
+            issuer: "fintech.admin",
+            subject: "user.login.info",
+          },
+          function (err, token) {
+            if (err) {
+              console.error(err);
+            }
+            console.log("로그인 성공", token);
+            res.json(token);
+          }
+        );
+      }
     });
-});
-
+  });
+  
 app.listen(process.env.PORT)
