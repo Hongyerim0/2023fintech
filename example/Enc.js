@@ -9,6 +9,8 @@ const sha256Enc = (plainText, key) => {
   return hash;
 };
 
+console.log(sha256Enc("1234", "fintech"));
+
 const AESEncrypt = (plainTxt) => {
   const algorithm = "aes-256-cbc";
   const key = "H3uVnnOnNIXXsH63CsgswUsmICSCdVsn";
@@ -29,5 +31,6 @@ const AESDecrypt = (plainTxt) => {
   decrypted += cipher.final("utf-8");
   console.log(decrypted);
 };
+
 AESEncrypt("!Kwic123테스트");
 AESDecrypt("b3Bu7QBZ0q96+f2GY2NQmaT1XnZElI1+wRdSHBOY01s=");
