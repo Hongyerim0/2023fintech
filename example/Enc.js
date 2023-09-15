@@ -8,3 +8,23 @@ const sha256Enc = (plainText, key) => {
     .digest("base64");
   return hash;
 };
+
+const AESEncrypt = (plainTxt) => {
+    const algorithm = "aes-256-cbc";
+    const key = "H3uVnnOnNIXXsH63CsgswUsmICSCdVsn";
+    const iv = "dwUgwmwOndnJOmOX";
+    const cipher = crypto.createCipheriv(algorithm, key, iv);
+    let encrypted = cipher.update(plainTxt, "utf8", "base64");
+    encrypted += cipher.final("base64");
+    console.log(encrypted);
+    return encrypted;
+  };
+  const AESDecrypt = (plainTxt) => {
+    const algorithm = "aes-256-cbc";
+    const key = "H3uVnnOnNIXXsH63CsgswUsmICSCdVsn";
+    const iv = "dwUgwmwOndnJOmOX";
+    const cipher = crypto.createDecipheriv(algorithm, key, iv);
+    let decrypted = cipher.update(plainTxt, "base64", "utf8");
+    decrypted += cipher.final("utf8");
+    console.log(decrypted);
+  };
